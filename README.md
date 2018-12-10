@@ -107,11 +107,16 @@ Por lo tanto hemos encontrado un determinante (IdResponsable) que sin embargo no
 
 ​	Existen mas formas normales, que son la 4FN, 5FN y la forma normal de dominio/clave, sin embargo estas formas son a nivel teorico, en la practica o son imposibles o redundantes.  
 
-En principio se entendería que para llegar a la forma normal 3, por ejemplo, habría que pasar por cada una de las formas normales, pero realmente esto no es necsario, se puede establecer desde el origen tablas con la forma normal 3 y, lo ideal, ya que no supone apenas coste, es conseguir formas normal mas alta por encima del correspondiente, es decir, si tienes una tabla en forma normal 3, creada tal cual desde el principio, lo normal seria tener HNF4, pero puedes tener 5HNF.(EJEMPLO DE ESTO)
+En principio se entendería que para llegar a la forma normal 3, por ejemplo, habría que pasar por cada una de las formas normales, pero realmente esto no es necsario, se puede establecer desde el origen tablas con la forma normal 3 y, lo ideal, ya que no supone apenas coste, es conseguir formas normal mas alta por encima del correspondiente, es decir, si tienes una tabla en forma normal 3, creada tal cual desde el principio, lo normal seria tener HNF4, pero puedes tener 5HNF.
 
 ## EJEMPLOS
 
 Veamos un ejemplo de una tabla que no esté en ninguna forma normal
+
+```sql
+-- Tabla no normalizada
+select * from [NoFN];
+```
 
 | ID   | NOMBRE         | APELLIDO  | DIRECCIÓN                      | CP    | LOCALIDAD | PAÍS         |
 | ---- | -------------- | --------- | ------------------------------ | ----- | --------- | ------------ |
@@ -122,6 +127,11 @@ Veamos un ejemplo de una tabla que no esté en ninguna forma normal
 
 Para pasarlo a 1NF, se hace el siguiente cambio:
 
+```sql
+-- Tabla en la primera forma normal
+select * from [1FN];
+```
+
 | ID   | NOMBRE         | APELLIDO  | DIRECCIÓN      | CP    | PAÍS         |
 | ---- | -------------- | --------- | -------------- | ----- | ------------ |
 | 1    | Rafael         | Fernández | C/ Palito 1    | 29100 | España       |
@@ -129,6 +139,12 @@ Para pasarlo a 1NF, se hace el siguiente cambio:
 | 2    | Vincent Willem | van Gogh  | C/Pinturas 900 | 32567 | Paises Bajos |
 
 Ahora bien, si deseamos pasarlo a la 2NF, tan solo debemos crear una tabla que contenga los atributos *Nombre* y *Apellido*, y retirarlo de la tabla que teniamos, quedando el siguiente esquema:
+
+```sql
+-- Tabla en la segunda forma normal
+select * from [2FN2];
+select * from [2FN1];
+```
 
 | ID   | NOMBRE         | APELLIDO  |
 | ---- | -------------- | --------- |
@@ -142,6 +158,13 @@ Ahora bien, si deseamos pasarlo a la 2NF, tan solo debemos crear una tabla que c
 | 2    | C/Pinturas 900 | 32567 | Paises Bajos |
 
 Siguiendo con el ejemplo, si deseamos pasarlo a la 3NF,  debemos ver donde estan las dependencias funcionales transitivas y seguido se crea una nueva tabla con los atributos que tienen dicha dependencia y eliminandose de la tabla original, es decir:
+
+```sql
+-- Tabla en la tercera forma normal
+select * from [2FN2];
+select * from [3FN1];
+select * from [3FN2];
+```
 
 | ID   | NOMBRE         | APELLIDO  |
 | ---- | -------------- | --------- |
@@ -172,5 +195,5 @@ https://es.wikipedia.org/wiki/Normalizaci%C3%B3n_de_bases_de_datos
 http://www.contaduria.uady.mx/bd_I/entidades_y_atributos1.htm
 
 
- 
+
   
